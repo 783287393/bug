@@ -1,0 +1,25 @@
+# 告警规则（选做）：服务不可用持续 1 分钟触发；for 用于避免一次尖峰抖动误报。
+groups:
+  - name: demo-app-alerts
+    rules:
+      - alert: AppInstanceDown
+        expr: up{job="demo-app"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "演示应用实例已下线"
+          description: "up{job=\"demo-app\"} 已持续 1 分钟为 0，请检查应用进程与 8000 端口。"
+
+      - alert: HighLatencyP95
+        expr: |
+          histogram_quantile(
+            0.95,
+            sum by (le) (rate(http_request_duration_seconds_bucket{job="demo-app"}[5m]))
+          ) > 1.0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "p95 延迟超过 1 秒"
+          description: "最近 5 分钟 p95 延迟持续高于 1s，请结合负载与 CPU 指标判断。"

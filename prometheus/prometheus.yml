@@ -1,0 +1,14 @@
+# Prometheus 抓取配置（原生 Windows / 本机路线）
+# 容器路线下 targets 改为服务名 app:8000，数据源 URL 改为 http://prometheus:9090。
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: demo-app
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["127.0.0.1:8000"]
+
+rule_files:
+  - alerts.yml

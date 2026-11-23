@@ -1,0 +1,12 @@
+apiVersion: 1
+
+providers:
+  - name: observability-lab
+    folder: ""
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      # 改为本机项目内 dashboards 目录的绝对路径（Windows 使用正斜杠）
+      path: D:/bug management/observability-lab/grafana/dashboards
