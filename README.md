@@ -153,8 +153,8 @@ python -m pytest tests -q
 
 ## 8. 个人开发记录与贡献证据
 
-- 分支：`main` 与 `feature/observability-dashboard`；提交分层覆盖基线、埋点与采集、自主面板、测试与文档。
-- 至少 5 个可解释 Commit，PR 关联对应 Issue；合并前完成一次有文字记录的自审核对。
+- 远程仓库：https://github.com/783287393/bug.git ，默认分支 `main`；提交分层覆盖基线、埋点与采集、配置与告警、自主面板、测试与文档。
+- 5 个可解释 Commit：项目基线 → FastAPI 埋点 → Prometheus/Grafana 配置 → 自主 Dashboard → pytest 与负载脚本。
 - 提交记录核对命令：
 
 ```powershell
