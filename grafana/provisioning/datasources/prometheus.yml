@@ -5,7 +5,7 @@ datasources:
     uid: prometheus
     type: prometheus
     access: proxy
-    # 原生本机路线：Grafana 与 Prometheus 同在本机；容器路线改为 http://prometheus:9090
-    url: http://127.0.0.1:9090
+    # 容器路线：Grafana 经 Compose 网络访问 prometheus 服务；原生本机路线改回 http://127.0.0.1:9090
+    url: http://prometheus:9090
     isDefault: true
     editable: true

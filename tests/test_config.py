@@ -33,4 +33,5 @@ def test_grafana_datasource_provisioning():
     )
     datasource = ds["datasources"][0]
     assert datasource["type"] == "prometheus"
-    assert datasource["url"] == "http://127.0.0.1:9090"
+    # 原生本机路线访问 127.0.0.1；Compose 路线经服务名 prometheus 访问，两者均合法。
+    assert datasource["url"] in {"http://127.0.0.1:9090", "http://prometheus:9090"}

@@ -14,7 +14,8 @@ import time
 
 import requests
 
-BASE = "http://127.0.0.1:8000"
+DEFAULT_BASE = "http://127.0.0.1:8000"
+BASE = DEFAULT_BASE
 
 
 def one_request(index: int, delay_ms: int, error_ratio: float) -> int:
@@ -35,7 +36,10 @@ def main() -> None:
     parser.add_argument("--concurrency", type=int, default=4, help="并发数（不超过 8）")
     parser.add_argument("--delay-ms", type=int, default=0, help="每请求附加延迟 0-2000ms")
     parser.add_argument("--error-ratio", type=float, default=0.0, help="错误请求占比 0-0.2")
+    parser.add_argument("--base", default=DEFAULT_BASE, help="应用基础地址，容器路线映射到 8001 时传 http://127.0.0.1:8001")
     args = parser.parse_args()
+    global BASE
+    BASE = args.base
 
     concurrency = min(args.concurrency, 8)
     delay_ms = max(0, min(2000, args.delay_ms))

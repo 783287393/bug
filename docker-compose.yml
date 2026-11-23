@@ -4,7 +4,9 @@ services:
   app:
     build: .
     ports:
-      - "8000:8000"
+      # 容器内监听 8000；宿主映射 8001 以避免与本机其他占用 8000 的服务冲突。
+      # 若 8000 空闲，可改回 "8000:8000"。
+      - "8001:8000"
     restart: unless-stopped
 
   prometheus:

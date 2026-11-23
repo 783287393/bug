@@ -102,10 +102,15 @@ python -m pip install -r requirements.txt
 ### 路线 B：Docker Compose（可选）
 
 ```powershell
-docker compose up -d
+cd "D:\bug management\observability-lab"
+docker compose up -d --build
 ```
 
-容器路线注意：Prometheus 配置使用 `prometheus/prometheus-compose.yml`（target 为 `app:8000`）；Grafana 数据源 URL 需改为 `http://prometheus:9090`（修改 `grafana/provisioning/datasources/prometheus.yml`）。两条路线不要同时运行。
+容器路线注意：
+- Prometheus 配置使用 `prometheus/prometheus-compose.yml`（target 为 `app:8000`，容器内端口）；Grafana 数据源 URL 为 `http://prometheus:9090`（已在 `grafana/provisioning/datasources/prometheus.yml` 配好）。
+- 宿主端口：应用 `8001`、Prometheus `9090`、Grafana `3000`。应用指标地址 http://127.0.0.1:8001/metrics ；若本机 8000 空闲，可在 `docker-compose.yml` 把 app 端口改回 `"8000:8000"`。
+- 容器路线跑负载脚本时显式指定地址：`python scripts/load_test.py --base http://127.0.0.1:8001 --total 200 --concurrency 4`。
+- 两条路线不要同时运行。
 
 ## 5. 最小演示流程
 
